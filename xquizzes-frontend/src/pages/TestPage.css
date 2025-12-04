@@ -1,0 +1,121 @@
+/* src/pages/TestPage.css */
+.testpage-root {
+  max-width: 980px;
+  margin: 28px auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.testpage-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.subject-title h2 {
+  margin: 0 0 6px;
+  font-size: 22px;
+}
+
+.meta {
+  color: #6b7280;
+  font-size: 14px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.test-actions { display:flex; gap:10px; align-items:center; }
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-submit { background: #ef4444; color: white; }
+.btn-retry { background: #0b5cff; color: white; }
+.btn-back { background: #f3f4f6; color: #111827; border: 1px solid #e5e7eb; }
+
+.questions-wrap { display: flex; flex-direction: column; gap: 12px; }
+
+/* question card */
+.question-card {
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(10,20,40,0.06);
+  transition: transform 0.15s ease;
+}
+.question-card .q-top {
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+.q-index { font-weight:700; color:#111827; min-width:36px; }
+.q-text { font-size:16px; color:#0f172a; }
+
+/* options */
+.options { margin-top:10px; display:flex; flex-direction:column; gap:8px; }
+
+.option {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:9px 12px;
+  border-radius:10px;
+  border:1px solid #eef2f7;
+  cursor:pointer;
+  transition: background 0.12s, border-color 0.12s, transform 0.08s;
+}
+.option input { width:16px; height:16px; }
+.option .option-text { font-size:15px; color:#0f172a; }
+.option:hover { transform: translateY(-2px); }
+
+/* selected style before submit */
+.option.checked { background: #f1f8ff; border-color: #dbeafe; }
+
+/* after submit: correct / wrong */
+.option.correct {
+  background: #ecfdf5;
+  border-color: #86efac;
+}
+.option.wrong {
+  background: #fff1f2;
+  border-color: #fda4af;
+  opacity: 0.95;
+}
+
+.answer-row {
+  margin-top: 10px;
+  color: #374151;
+  font-size: 14px;
+}
+
+/* small message when there are no questions */
+.no-questions {
+  background: #fff9f0;
+  padding: 20px;
+  border-radius: 8px;
+  color: #92400e;
+}
+
+/* result summary small card */
+.result-summary {
+  background: #f1f8ff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  color: #0b5cff;
+}
+
+/* responsive */
+@media (max-width: 720px) {
+  .testpage-root { padding: 0 12px; }
+  .question-card { padding: 12px; }
+  .subject-title h2 { font-size: 18px; }
+}
