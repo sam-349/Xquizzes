@@ -1,13 +1,13 @@
  import React from "react";
 import "./LandingPage.css";
 import Footer from "../components/Footer";
-import Navbar from "../components/NavBar";
+import Navbar from "../components/Navbar";
 import heroImg from "../assets/hero_sec.jpeg";
 
 const LandingPage = () => {
   return (
     <div className="landing-container">
-        <Navbar/>
+        {/* <Navbar/> */}
         
       {/* <nav className="navbar">
         <div className="logo">Xquizzes</div>
@@ -156,8 +156,6 @@ const LandingPage = () => {
   </div>
 </section>
 
-    {/* Footer Section*/}
-    <Footer />
     </div>
   );
 };

@@ -1,27 +1,39 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import DashboardNavbar from "./components/DashboardNavbar";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-// import Dashboard from "./pages/Dashboard";
-// import TestStart from "./pages/TestStart";
-// import TestPage from "./pages/TestPage";
-// import ResultsPage from "./pages/ResultsPage";
-// import ReviewSources from "./pages/ReviewSources";
+import Dashboard from "./pages/Dashboard";
+
+function Layout() {
+  const location = useLocation();
+  const isDashboard = location.pathname.startsWith("/dashboard");
+
+  return (
+    <>
+      {isDashboard ? <DashboardNavbar /> : <Navbar />}
+
+      <div style={{ minHeight: "80vh" }}>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </div>
+
+      {!isDashboard && <Footer />}
+    </>
+  );
+}
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-       {/* <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/start-test" element={<TestStart />} />
-        <Route path="/test/:testId" element={<TestPage />} />
-        <Route path="/results/:testId" element={<ResultsPage />} />
-        <Route path="/review/:questionId" element={<ReviewSources />} /> */}
-      </Routes>
-    </BrowserRouter>
+    <Router>
+      <Layout />
+    </Router>
   );
 }
 
