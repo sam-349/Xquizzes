@@ -19,30 +19,23 @@ export default function TestPage() {
   const [flagged, setFlagged] = useState(Array(total).fill(false));
 
   const [submitted, setSubmitted] = useState(false);
-  const [score, setScore] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
 
   const timerRef = useRef(null);
 
   // Start timer
   useEffect(() => {
-    setSelected(Array(total).fill(null));
-    setFlagged(Array(total).fill(false));
-    setTimeLeft(DEFAULT_TIME);
-
     timerRef.current = setInterval(() => {
       setTimeLeft((t) => t - 1);
     }, 1000);
-
     return () => clearInterval(timerRef.current);
-  }, [subject, total]);
+  }, []);
 
   useEffect(() => {
     if (timeLeft <= 0 && !submitted) handleSubmit();
   }, [timeLeft]);
 
-  // Select an option
   const handleSelect = (oi) => {
-    if (submitted) return;
     const copy = [...selected];
     copy[currentQ] = oi;
     setSelected(copy);
@@ -54,17 +47,30 @@ export default function TestPage() {
     setFlagged(copy);
   };
 
-  // Submit test
   const handleSubmit = () => {
     clearInterval(timerRef.current);
-
-    let sc = 0;
-    questions.forEach((q, i) => {
-      if (selected[i] === q.answer) sc++;
-    });
-
-    setScore(sc);
     setSubmitted(true);
+    setShowPopup(true);
+
+    // Save the report
+    const score = selected.reduce((acc, ans, i) => {
+      return ans === questions[i].answer ? acc + 1 : acc;
+    }, 0);
+
+    const wrong = total - score;
+
+    const reportData = {
+      subject,
+      total,
+      selected,
+      flagged,
+      score,
+      wrong,
+      percentage: ((score / total) * 100).toFixed(2),
+      questions,
+    };
+
+    localStorage.setItem("testReport", JSON.stringify(reportData));
   };
 
   const formatTime = (secs) => {
@@ -76,21 +82,17 @@ export default function TestPage() {
   return (
     <div className="test-wrapper">
 
-      {/* TOP HEADER */}
       <div className="top-header">
         <h2>{subject.toUpperCase()} Test</h2>
         <div className="timer-box">{formatTime(timeLeft)}</div>
       </div>
 
-      {/* MAIN AREA */}
       <div className="test-container">
 
-        {/* LEFT SIDE */}
         <div className="test-left">
-
           {!submitted ? (
             <div className="question-card">
-              <h3 className="question-text">
+              <h3>
                 Q{currentQ + 1}. {questions[currentQ].question}
               </h3>
 
@@ -98,13 +100,10 @@ export default function TestPage() {
                 {questions[currentQ].options.map((opt, oi) => (
                   <label
                     key={oi}
-                    className={`option-item ${
-                      selected[currentQ] === oi ? "selected-option" : ""
-                    }`}
+                    className={`option-item ${selected[currentQ] === oi ? "selected-option" : ""}`}
                   >
                     <input
                       type="radio"
-                      name="option"
                       checked={selected[currentQ] === oi}
                       onChange={() => handleSelect(oi)}
                     />
@@ -114,32 +113,15 @@ export default function TestPage() {
               </div>
 
               <button className="flag-btn" onClick={toggleFlag}>
-                {flagged[currentQ] ? "Unflag this question" : "Flag this question"}
+                {flagged[currentQ] ? "Unflag Question" : "Flag Question"}
               </button>
             </div>
           ) : (
-            <div className="result-box">
-              <h2 className="result-title">🎉 Test Report</h2>
-
-              <div className="result-card">
-                <h3>Score Summary</h3>
-                <p><strong>Total Questions:</strong> {total}</p>
-                <p><strong>Correct Answers:</strong> {score}</p>
-                <p><strong>Wrong Answers:</strong> {total - score}</p>
-                <p><strong>Percentage:</strong> {(score / total * 100).toFixed(2)}%</p>
-              </div>
-
-              <button
-                className="dashboard-btn"
-                onClick={() => navigate("/dashboard")}
-              >
-                Back to Dashboard
-              </button>
-            </div>
+            <h2 className="submitted-text">Test Submitted Successfully!</h2>
           )}
         </div>
 
-        {/* RIGHT SIDE: QUESTION NAVIGATION */}
+        {/* Right Navigation Panel */}
         <div className="question-nav">
           <h3>Questions</h3>
 
@@ -147,12 +129,10 @@ export default function TestPage() {
             {questions.map((_, idx) => (
               <button
                 key={idx}
-                className={`
-                  q-number 
-                  ${idx === currentQ ? "current" : ""}
-                  ${selected[idx] !== null ? "answered" : ""}
-                  ${flagged[idx] ? "flagged" : ""}
-                `}
+                className={`q-number 
+                  ${idx === currentQ ? "current" : ""} 
+                  ${selected[idx] !== null ? "answered" : ""} 
+                  ${flagged[idx] ? "flagged" : ""}`}
                 onClick={() => setCurrentQ(idx)}
               >
                 {idx + 1}
@@ -162,7 +142,6 @@ export default function TestPage() {
         </div>
       </div>
 
-      {/* STICKY BOTTOM NAVIGATION */}
       {!submitted && (
         <div className="bottom-nav">
           <button
@@ -173,18 +152,29 @@ export default function TestPage() {
           </button>
 
           <button
-            onClick={() =>
-              currentQ < total - 1
-                ? setCurrentQ((prev) => prev + 1)
-                : handleSubmit()
-            }
             className={currentQ === total - 1 ? "submit-btn" : ""}
+            onClick={() =>
+              currentQ === total - 1 ? handleSubmit() : setCurrentQ((prev) => prev + 1)
+            }
           >
             {currentQ === total - 1 ? "Submit Test" : "Next"}
           </button>
         </div>
       )}
 
+      {/* POPUP */}
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <h2>🎉 Test Submitted!</h2>
+            <p>Your test is successfully completed.</p>
+           <button onClick={() => navigate(`/report/${subject}`)} className="view-report-btn">
+              View Report
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+   

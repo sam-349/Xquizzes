@@ -9,20 +9,22 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import TestPage from "./pages/TestPage";
+import ReportPage from "./pages/ReportPage";   // ⬅️ NEW
 
 function Layout() {
   const location = useLocation();
 
-  // Dashboard and all dashboard children
+  // Dashboard pages
   const isDashboard = location.pathname.startsWith("/dashboard");
 
   return (
     <>
-      {/* Show dashboard navbar only inside dashboard */}
+      {/* Navbar logic */}
       {isDashboard ? <DashboardNavbar /> : <Navbar />}
 
       <div style={{ minHeight: "80vh" }}>
         <Routes>
+          {/* Public pages */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
@@ -32,6 +34,9 @@ function Layout() {
 
           {/* Test Page */}
           <Route path="/test/:subject" element={<TestPage />} />
+
+          {/* Report Page — NEW */}
+          <Route path="/report/:subject" element={<ReportPage />} />
         </Routes>
       </div>
 
