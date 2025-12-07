@@ -9,22 +9,23 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import TestPage from "./pages/TestPage";
-import ReportPage from "./pages/ReportPage";   // ⬅️ NEW
+import ReportPage from "./pages/ReportPage";
 
 function Layout() {
   const location = useLocation();
 
-  // Dashboard pages
-  const isDashboard = location.pathname.startsWith("/dashboard");
+  // Show DashboardNavbar on dashboard, test page and report page
+  const isDashboard =
+    location.pathname.startsWith("/dashboard") ||
+    location.pathname.startsWith("/test") ||
+    location.pathname.startsWith("/report");
 
   return (
     <>
-      {/* Navbar logic */}
       {isDashboard ? <DashboardNavbar /> : <Navbar />}
 
       <div style={{ minHeight: "80vh" }}>
         <Routes>
-          {/* Public pages */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
@@ -35,12 +36,11 @@ function Layout() {
           {/* Test Page */}
           <Route path="/test/:subject" element={<TestPage />} />
 
-          {/* Report Page — NEW */}
-          <Route path="/report/:subject" element={<ReportPage />} />
+          {/* Report Page */}
+          <Route path="/report" element={<ReportPage />} />
         </Routes>
       </div>
 
-      {/* No footer on dashboard */}
       {!isDashboard && <Footer />}
     </>
   );
