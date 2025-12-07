@@ -37,7 +37,9 @@ function Layout() {
           <Route path="/test/:subject" element={<TestPage />} />
 
           {/* Report Page */}
-          <Route path="/report" element={<ReportPage />} />
+          {/* <Route path="/report" element={<ReportPage />} /> */}
+          <Route path="/report/:subject" element={<ReportPage />} />
+
         </Routes>
       </div>
 
