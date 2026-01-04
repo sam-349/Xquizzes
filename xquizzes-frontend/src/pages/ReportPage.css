@@ -1,0 +1,157 @@
+.report-container {
+  padding: 40px;
+  max-width: 1000px;
+  margin: auto;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.report-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.report-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.percentage {
+  font-size: 40px;
+  font-weight: bold;
+  color: #007bff;
+  margin-top: 10px;
+}
+
+/* Summary Cards */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.summary-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  font-size: 20px;
+  transition: 0.3s;
+}
+
+.summary-card:hover {
+  transform: translateY(-3px);
+}
+
+.summary-card.correct {
+  border-left: 6px solid #28a745;
+}
+
+.summary-card.wrong {
+  border-left: 6px solid #dc3545;
+}
+
+.summary-card.percentage-card {
+  border-left: 6px solid #007bff;
+}
+
+.summary-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.summary-card p {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Weak Areas */
+.weak-section {
+  margin-top: 40px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.weak-section ul {
+  margin-top: 10px;
+  padding-left: 25px;
+}
+
+.weak-section li {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.perfect {
+  color: #28a745;
+  font-size: 18px;
+}
+
+/* Review Section */
+.review-section {
+  margin-top: 40px;
+}
+
+.review-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.review-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.correct-text {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.wrong-text {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Bottom Buttons */
+.report-buttons {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.back-btn,
+.retry-btn {
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.back-btn {
+  background: #6c757d;
+  color: white;
+}
+
+.retry-btn {
+  background: #007bff;
+  color: white;
+}
+
+.back-btn:hover,
+.retry-btn:hover {
+  opacity: 0.9;
+}
+
+/* Fade Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

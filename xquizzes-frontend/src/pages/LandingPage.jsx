@@ -1,14 +1,14 @@
-import React from "react";
+ import React from "react";
 import "./LandingPage.css";
 import Footer from "../components/Footer";
-import Navbar from "../components/NavBar";
+import Navbar from "../components/Navbar";
 import heroImg from "../assets/hero_sec.jpeg";
 
 const LandingPage = () => {
   return (
     <div className="landing-container">
-        <Navbar/>
-      
+        {/* <Navbar/> */}
+        
       {/* <nav className="navbar">
         <div className="logo">Xquizzes</div>
         <div className="nav-actions">
@@ -18,7 +18,7 @@ const LandingPage = () => {
       </nav> */}
 
       {/* HERO SECTION */}
-      <section className="hero">
+      <section className="hero" id="hero-section">
         <div className="hero-left">
           <h1 className="hero-title">
             Adaptive AI Test Series <br /> for Entrance Exams
@@ -41,8 +41,42 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* FEATURES SECTION */}
-      <section className="features">
+      {/* ABOUT SECTION */}
+    <section className="about-section" id="about-section">
+  <h2>About XQuizzes</h2>
+
+  <p className="about-desc">
+    XQuizzes is an adaptive AI-powered test platform designed to help
+    students prepare for competitive exams like GATE, JEE, and NEET.
+    Our system generates personalized tests, provides performance 
+    insights, and recommends study strategies to improve your scores.
+  </p>
+
+  <div className="about-grid">
+
+    <div className="about-card">
+      <h3>🎯 Mission</h3>
+      <p>To revolutionize exam preparation using AI and smart analytics.</p>
+    </div>
+
+    <div className="about-card">
+      <h3>⚡ Vision</h3>
+      <p>To help every student learn smarter, faster, and better.</p>
+    </div>
+
+    <div className="about-card">
+      <h3>📘 What We Offer</h3>
+      <p>
+        AI-generated tests, topic-based analysis, real-time insights, and
+        personalized recommendations.
+      </p>
+    </div>
+
+  </div>
+    </section>
+
+ {/* FEATURES SECTION */}
+      <section className="features" id="how-section">
         <div className="feature-card">
           <div className="feature-icon">🧠</div>
           <h3>AI-Generated Tests</h3>
@@ -99,8 +133,6 @@ const LandingPage = () => {
   </div>
 </section>
 
-
-
 {/* ANALYTICS SECTION */}
 <section className="analytics-section">
   <div className="analytics-left">
@@ -123,8 +155,7 @@ const LandingPage = () => {
     />
   </div>
 </section>
-    {/* Footer Section*/}
-    <Footer />
+
     </div>
   );
 };
