@@ -8,7 +8,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="nav-container">
 
-        {/* Logo */}
+        {/* Logo */}  
         <div className="nav-logo">
           X<span>Quizzes</span>
         </div>
